@@ -4,7 +4,10 @@
   "description": "A helper tool for building multi-lingual content in hugo",
   "main": "c.js",
   "dependencies": {
-    "google-translate-api": "^2.3.0"
+    "google-translate-api": "^2.3.0",
+    "html-format": "^1.0.0",
+    "htmltidy": "0.0.6",
+    "pretty": "^2.0.0"
   },
   "devDependencies": {},
   "scripts": {

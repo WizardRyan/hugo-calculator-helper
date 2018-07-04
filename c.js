@@ -11,11 +11,11 @@ const langs = ["es", "pt", "fr", "de", "en"];
 
 //set content path here
 const topDir = "converters";
-const subDir = "energy";
+const subDir = "electrical";
 
 //leave as "" if you want the program to query you for either of these
 const category = "converter";
-const tag = "energy";
+const tag = "electrical";
 
 
 let content = {};
@@ -26,8 +26,9 @@ function ask(obj){
 }
 
 function askName(obj){
-    rl.question("Content name: ", (n) => {
+    rl.question("Content filename: ", (n) => {
         obj.enName = n;
+        fs.writeFileSync('current-file-name.txt', n);
         askTitle(obj);
     })
 }
@@ -86,6 +87,7 @@ function checkCategory(obj){
 }
 
 function translateContent(obj){
+    console.log("Translating...");
     translateES(obj);
 }
 
@@ -125,13 +127,14 @@ function trans(obj, prop, lang, callback){
 
 
 function writeFiles(obj){
+    console.log('Writing Files...');
     langs.forEach(lang => writeContent(obj, lang));
     fs.writeFileSync(`../calc.guru/layouts/shortcodes/${obj.enName}.html`, '');
     console.log('All Done!');
 }
 
 function writeContent(obj, lang){
-    fs.writeFileSync(`../calc.guru/content/${topDir}/${subDir}/${obj.enName}.${lang}.md`, frontMatter(obj, 'es'));
+    fs.writeFileSync(`../calc.guru/content/${topDir}/${subDir}/${obj.enName}.${lang}.md`, frontMatter(obj, lang));
 }
 
 function frontMatter(obj, lang){
@@ -141,6 +144,8 @@ title: "${obj[lang + 'Title']}"
 categories: ["${obj[lang + 'Category']}"]
 tags: ["${obj[lang + 'Tag']}"]
 ---
-    `
+
+{{<${obj.enName}>}}
+`
     return header;
 }
