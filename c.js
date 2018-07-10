@@ -11,12 +11,14 @@ const langs = ["es", "pt", "fr", "de", "en"];
 
 //set content path here
 const topDir = "converters";
-const subDir = "electrical";
+const subDir = "voltage";
 
 //leave as "" if you want the program to query you for either of these
 const category = "converter";
-const tag = "electrical";
+const tag = subDir;
 
+fs.writeFileSync('current-top-dir.txt', topDir);
+fs.writeFileSync('current-sub-dir.txt', subDir);
 
 let content = {};
 ask(content);
@@ -88,24 +90,28 @@ function checkCategory(obj){
 
 function translateContent(obj){
     console.log("Translating...");
-    translateES(obj);
+    translateRe(0);
 }
 
-function translateES(obj){
-    transLang(obj, "es", translatePT);
+function translateRe(num){
+    transLang(obj, langs[num], translateRe(num++));
 }
 
-function translatePT(obj){
-    transLang(obj, "pt", translateDE);
-}
+// function translateES(obj){
+//     transLang(obj, "es", translatePT);
+// }
 
-function translateDE(obj){
-    transLang(obj, "de", translateFR);
-}
+// function translatePT(obj){
+//     transLang(obj, "pt", translateDE);
+// }
 
-function translateFR(obj){
-    transLang(obj, "fr", writeFiles);
-}
+// function translateDE(obj){
+//     transLang(obj, "de", translateFR);
+// }
+
+// function translateFR(obj){
+//     transLang(obj, "fr", writeFiles);
+// }
 
 
 function transLang(obj, lang, callback){

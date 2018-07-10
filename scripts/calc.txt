@@ -1,0 +1,6 @@
+function calc() {
+	x = document.calcform.x.value;
+	y = convert(x);
+ 	y = roundresult(y);
+ 	document.calcform.y.value = y;
+}
