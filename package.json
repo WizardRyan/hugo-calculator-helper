@@ -7,7 +7,8 @@
     "google-translate-api": "^2.3.0",
     "html-format": "^1.0.0",
     "htmltidy": "0.0.6",
-    "pretty": "^2.0.0"
+    "pretty": "^2.0.0",
+    "tunnel": "0.0.5"
   },
   "devDependencies": {},
   "scripts": {

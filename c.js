@@ -11,7 +11,7 @@ const langs = ["es", "pt", "fr", "de", "en"];
 
 //set content path here
 const topDir = "converters";
-const subDir = "voltage";
+const subDir = "color";
 
 //leave as "" if you want the program to query you for either of these
 const category = "converter";
@@ -90,28 +90,39 @@ function checkCategory(obj){
 
 function translateContent(obj){
     console.log("Translating...");
-    translateRe(0);
+    // translateRe(obj, 0);
+    translateES(obj);
 }
 
-function translateRe(num){
-    transLang(obj, langs[num], translateRe(num++));
+// function translateRe(obj, num){
+//     if(num == langs.length){
+//         writeFiles(obj);
+//     }
+//     else{
+//         if(langs[num] == 'en'){
+//             translateRe(obj, num++);
+//         }
+//         else{
+//             transLang(obj, langs[num], num, translateRe);
+//         }
+//     }
+// }
+
+function translateES(obj){
+    transLang(obj, "es", translatePT);
 }
 
-// function translateES(obj){
-//     transLang(obj, "es", translatePT);
-// }
+function translatePT(obj){
+    transLang(obj, "pt", translateDE);
+}
 
-// function translatePT(obj){
-//     transLang(obj, "pt", translateDE);
-// }
+function translateDE(obj){
+    transLang(obj, "de", translateFR);
+}
 
-// function translateDE(obj){
-//     transLang(obj, "de", translateFR);
-// }
-
-// function translateFR(obj){
-//     transLang(obj, "fr", writeFiles);
-// }
+function translateFR(obj){
+    transLang(obj, "fr", writeFiles);
+}
 
 
 function transLang(obj, lang, callback){
@@ -128,7 +139,7 @@ function trans(obj, prop, lang, callback){
     translate(obj["en" + prop], {to: lang}).then(res => {
         obj[lang + prop] = res.text;
         callback();
-    });
+    }).catch(e => console.log(e));
 }
 
 

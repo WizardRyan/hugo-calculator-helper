@@ -139,8 +139,44 @@ function trans(){
             text = text.replace(/\"typ\"/g, '"type"');
             text = text.replace(/\"tipo\"/g, '"type"');
             text = text.replace(/is\=/g, "id=");
-            text = text.replace(/\<bouton/g, "<button");
-            rep(/1/g, "2");
+            text = text.replace(/\<bouton/g, "<button");         
+               
+            rep(/fundo:/g, "background:");
+            rep(/nome da entrada/g, "input name");
+            rep(/altura:/g, "height:");
+            rep(/\<\/ td/g, "</td");
+            rep(/\/ td/g, "/td");
+            rep(/Platzhalter\=/g, "placeholder=");
+            rep(/espaço reservado\=/, "placeholder=");
+            rep(/\"amostra\"/g, '"swatch"');
+            rep(/\"Farbfeld\"/g, '"swatch"');
+
+            if(langs[lIndex] == 'es'){
+                rep(/value\=\"Reset\"/g, 'value="Reniciar"');
+            }
+
+            if(langs[lIndex] == 'pt'){
+                rep(/value\=\"Reset\"/g, 'value="Restabelecer"');
+                rep(/value\=\"Convert\"/g, 'value="Converter"');
+                rep(/\"cor\"/g, "color");
+                
+            }
+
+            if(langs[lIndex] == 'fr'){
+                rep(/value\=\"Convert\"/g, 'value="Convertir"');
+                rep(/arrière-plan:/g, "background:");
+                rep(/hauteur:/g, "height:");
+                rep(/espace réservé\=/g, "placeholder=");
+                rep(/\"coleur\"/g, "color");
+            }
+
+            if(langs[lIndex] == 'de'){
+                rep(/\<Formular/g, '<form ');
+                rep(/Hintergrund:/g, "background:");
+                rep(/Höhe:/g, "height:");
+            }
+            rep(/formname/g, "form name");
+            rep(/type\"\=/g, 'type="');
             //text = text.replace(/)
             text = format(text);
             console.log(`Writing ${fName}.${langs[lIndex]}.md...`)
